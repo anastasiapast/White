@@ -24,23 +24,16 @@ namespace WhiiteTest
         [SetUp]
         public void init()
         {
-            application = Application.Launch("Калькулятор");
+            application = Application.Launch("C:\\Program Files (x86)\\Microsoft Калькулятор Плюс\\CalcPlus.exe");
 
-            main = application.GetWindow("Калькулятор");
+            main = application.GetWindow("Калькулятор Плюс");
 
             //массив цифровых кнопок
             btnDigits = new Button[10];
             for (int i = 0; i < 10; i++)
             {
-                //num4Button
-                btnDigits[i] = main.Get<Button>(SearchCriteria.ByAutomationId("num" + i.ToString() + "Button"));
+                btnDigits[i] = main.Get<Button>(i.ToString());
             }
-        }
-
-        [TearDown]
-        public void close()
-        {
-            main.Close();
         }
 
         [Test]
@@ -53,7 +46,7 @@ namespace WhiiteTest
             var btnExec = main.Get<Button>("=");
 
             //получаем окно ввода по его AutomationID, которое определил UIVerify
-            var tbResult = main.Get<TextBox>(SearchCriteria.ByAutomationId("CalculatorResults"));
+            var tbResult = main.Get<TextBox>(SearchCriteria.ByAutomationId("403"));
 
             //вводим 10
             btnDigits[1].Click();
@@ -70,7 +63,13 @@ namespace WhiiteTest
             var result = tbResult.Text;
             int ires = int.Parse(result, System.Globalization.NumberStyles.Float);
 
-            Assert.AreEqual(a + b, result);
+            Assert.AreEqual(a + b, ires);
+        }
+
+        [TearDown]
+        public void close()
+        {
+            main.Close();
         }
     }
 }
