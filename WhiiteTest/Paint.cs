@@ -1,18 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
-using TestStack.White;
-using TestStack.White.UIItems;
-using TestStack.White.UIItems.Finders;
-using TestStack.White.UIItems.MenuItems;
 using TestStack.White.UIItems.WindowItems;
-using TestStack.White.UIItems.ListViewItems;
-using TestStack.White.UIItems.WindowStripControls;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using TestStack.White.UIItems;
+using System.Windows;
+using TestStack.White.InputDevices;
+
 using Application = TestStack.White.Application;
 
 namespace WhiiteTest
@@ -20,15 +12,19 @@ namespace WhiiteTest
     [TestFixture]
     public class TestPaint
     {
+
         private Application paint;
         private Window mainPaint;
-        private Cursor Cursor;
+        private Button info;
+        private enum shapesInd{
+            Rectangle = 3
+        };
 
         [SetUp]
         public void init()
         {
             paint = Application.Launch("mspaint.exe");
-            mainPaint = paint.GetWindow("Untitled - Paint");
+            mainPaint = paint.GetWindow("Untitled - Paint", TestStack.White.Factory.InitializeOption.NoCache);
 
         }
 
@@ -40,40 +36,40 @@ namespace WhiiteTest
             //потом ListItem Rectangle
             //2. Draw the rectangle
 
+            var shapes = mainPaint.Get<TestStack.White.UIItems.ListBoxItems.ListBox>("Shapes");
 
+            //foreach (ListItem item in shapes.Items)
+            TestStack.White.UIItems.ListBoxItems.ListItem rectangle = shapes.Items.Item(shapesInd.Rectangle.ToString());
 
+            rectangle.DoubleClick();
 
-            var shapes = mainPaint.Get<TestStack.White.UIItems.ListView>("Shapes");
-            //mainPaint.GetElement(SearchCriteria.ByText("Rectangle"));
+            System.Threading.Thread.Sleep(2000);            
 
             Console.WriteLine("test");
 
-            /*Cursor = new Cursor(Cursor.Current.Handle);
-            Cursor.Position = new Point(Cursor.Position.X - 150, Cursor.Position.Y - 150);
-            Cursor.Show();
-            System.Threading.Thread.Sleep(5000);
-            //Cursor.Clip = new Rectangle()
-            
-            Console.WriteLine("test");*/
+            draw(67, 368);
 
-
-
-            /* UICoded
-             * 
-             * WinListItem uIRectangleListItem = this.UIUntitledPaintWindow.UIItemWindow.UIShapesClient.UIRectangleListItem;
-            WinClient uIUntitledPaintClient = this.UIUntitledPaintWindow.UIItemWindow1.UIUntitledPaintClient;
-            #endregion
-
-            // Last mouse action was not recorded.
-
-            // Click 'Rectangle' list item
-            Mouse.Click(uIRectangleListItem, new Point(10, 14));
-
-            // Move 'Untitled - Paint' client
-            Mouse.StartDragging(uIUntitledPaintClient, new Point(112, 67));
-            Mouse.StopDragging(uIUntitledPaintClient, 500, 289);
-            */
+            info = mainPaint.Get<Button>("Product alert");
+            if (info.Visible)
+            {
+                info.Click();
+                var alert = mainPaint.ModalWindow("Product alert");
+                alert.Get<Button>("OK").Click();
+            }
         }
+
+        public void draw(int x, int y)
+        {
+
+            Mouse.Instance.Location = new Point(x, y);
+
+            Mouse.LeftDown();
+
+            Mouse.Instance.Location = new Point(x*3, y*2.5);
+
+            Mouse.LeftUp();
+        }
+
 
         [TearDown]
         public void close()
