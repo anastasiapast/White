@@ -13,6 +13,14 @@ namespace WhiiteTest
     public class TestPaint
     {
 
+        /*SearchCriteria searchCriteria = SearchCriteria
+                                            .ByAutomationId("name")
+                                            .AndControlType(typeof(TextBox))
+                                            .AndIndex(2);
+        TextBox textBox = (TextBox)window.Get(searchCriteria);
+        textBox.Text = "Anil";*/
+
+
         private Application paint;
         private Window mainPaint;
         private Button info;
@@ -35,6 +43,8 @@ namespace WhiiteTest
             //сначала находим List - Shapes
             //потом ListItem Rectangle
             //2. Draw the rectangle
+
+            //TestStack.White.UIItems.ListBoxItems - класс для многих листбоксов
 
             var shapes = mainPaint.Get<TestStack.White.UIItems.ListBoxItems.ListBox>("Shapes");
 
