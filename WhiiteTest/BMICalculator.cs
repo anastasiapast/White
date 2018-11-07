@@ -23,11 +23,7 @@ namespace WhiiteTest
             applicationBmi = Application.Launch("C:\\Program Files (x86)\\BMI & BMR Calculator\\BMI.exe");
             mainWindow = applicationBmi.GetWindow("BMI Calculator");
 
-            ToolStrip toolStrip = mainWindow.Get<ToolStrip>("ToolBar1");
-
-            RadioButton metric = toolStrip.Get<RadioButton>(SearchCriteria.ByClassName("TRadioButton").AndIndex(1));
-            metric.DoubleClick();
-            Assert.IsTrue(metric.Enabled);
+            setMetric();
         }
 
         [TestCaseSource("BmiTestData")]
@@ -47,18 +43,15 @@ namespace WhiiteTest
             Button calculateBtn = mainWindow.Get<Button>("Calculate");
             calculateBtn.Click();
 
-            Panel childpanelUpd = panel.Get<Panel>(SearchCriteria.ByClassName("TsPanel").AndIndex(0));
-
-            Console.WriteLine(childpanelUpd.Text);
-
             Assert.IsNotNull(calculateBtn);
 
+            //create invalid data and tests
         }
 
         [TearDown]
         public void close()
         {
-            applicationBmi.Kill();
+            if (applicationBmi != null) applicationBmi.Kill();
         }
 
 
@@ -76,6 +69,15 @@ namespace WhiiteTest
                 let weight = vars.Attribute("weight").Value
 
                 select new object[] { height, weight };
+        }
+
+        public void setMetric()
+        {
+            ToolStrip toolStrip = mainWindow.Get<ToolStrip>("ToolBar1");
+
+            RadioButton metric = toolStrip.Get<RadioButton>(SearchCriteria.ByClassName("TRadioButton").AndIndex(1));
+            metric.DoubleClick();
+            Assert.IsTrue(metric.Enabled);
         }
 
     }

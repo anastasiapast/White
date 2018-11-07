@@ -81,8 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Calc.cs" />
     <Compile Include="Paint.cs" />
-    <Compile Include="ScreenObject\BmiCalcPage.cs" />
-    <Compile Include="ScreenObject\BmiCalcTests.cs" />
+    <Compile Include="ScreenObject\BMITests.cs" />
+    <Compile Include="ScreenObject\MainBMIWindow.cs" />
+    <Compile Include="ScreenObject\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
