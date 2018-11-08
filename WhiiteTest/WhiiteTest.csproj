@@ -81,7 +81,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Calc.cs" />
     <Compile Include="Paint.cs" />
-    <Compile Include="ScreenObject\BMITests.cs" />
+    <Compile Include="ScreenObject\BMITestSuite.cs" />
+    <Compile Include="ScreenObject\Functions.cs" />
     <Compile Include="ScreenObject\MainBMIWindow.cs" />
     <Compile Include="ScreenObject\ModalWindow.cs" />
     <Compile Include="ScreenObject\TestBase.cs" />

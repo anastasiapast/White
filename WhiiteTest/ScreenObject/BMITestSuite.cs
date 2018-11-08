@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,11 +15,12 @@ using TestStack.White.UIItems.WindowItems;
 namespace WhiiteTest.ScreenObject
 {
     [TestFixture]
-    public class BMITests : TestBase
+    public class BMITestSuite : TestBase
     {
         static string valid = @"C:\Users\apastukhova\Source\Repos\WhiiteTest\WhiiteTest\data.xml";
         static string invalid = @"C:\Users\apastukhova\Source\Repos\WhiiteTest\WhiiteTest\dataInvalid.xml";
 
+        [Category("BMI")]
         [TestCaseSource("BmiTestData")]
         public void ScreenBmiTest(string height, string weight)
         {
@@ -30,6 +32,7 @@ namespace WhiiteTest.ScreenObject
             main.Calculate(height, weight);
         }
 
+        [Category("BMI")]
         [TestCaseSource("BmiTestDataInvalid")]
         public void InvalidBmiCases(string height, string weight, string error)
         {
@@ -47,7 +50,7 @@ namespace WhiiteTest.ScreenObject
         private static IEnumerable BmiTestData
         {
             get {
-                return GetBmiTestData(valid);
+                return Functions.GetBmiTestData(valid);
     }
         }
 
@@ -55,30 +58,9 @@ namespace WhiiteTest.ScreenObject
         {
             get
             {
-                return GetBmiTestData(invalid);
+                return Functions.GetBmiTestData(invalid);
             }
         }
 
-        private static IEnumerable GetBmiTestData(String path)
-        {
-            var doc = XDocument.Load(path);
-            if (path.Contains("Invalid"))
-            {
-                return
-                    from vars in doc.Descendants("vars")
-                    let height = vars.Attribute("height").Value
-                    let weight = vars.Attribute("weight").Value
-                    let error = vars.Attribute("error").Value
-                    select new object[] { height, weight, error };
-            }
-            else
-            {
-                return
-                    from vars in doc.Descendants("vars")
-                    let height = vars.Attribute("height").Value
-                    let weight = vars.Attribute("weight").Value
-                    select new object[] { height, weight };
-            }
-        }
     }
 }

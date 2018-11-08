@@ -36,6 +36,7 @@ namespace WhiiteTest
 
         }
 
+        [Category("Paint")]
         [Test]
         public void testPaint()
         {
