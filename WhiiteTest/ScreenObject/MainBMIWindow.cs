@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
+using TestStack.White.Factory;
 using TestStack.White.ScreenObjects;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.Finders;
@@ -44,6 +45,22 @@ namespace WhiiteTest.ScreenObject
 
             calculateBtn = Window.Get<Button>("Calculate");
             calculateBtn.Click();
+        }
+
+        public virtual ModalWindow Calculate(string heightM, string weightM, string error)
+        {
+            panel = Window.Get<Panel>(SearchCriteria.ByClassName("TsPanel").AndIndex(0));
+            childPanel = panel.Get<Panel>(SearchCriteria.ByClassName("TsPanel").AndIndex(0));
+            heightEdit = childPanel.Get<TextBox>(SearchCriteria.ByClassName("TsEdit").AndIndex(1));
+            weightEdit = childPanel.Get<TextBox>(SearchCriteria.ByClassName("TsEdit").AndIndex(0));
+
+            heightEdit.SetValue(heightM);
+            weightEdit.SetValue(weightM);
+
+            calculateBtn = Window.Get<Button>("Calculate");
+            calculateBtn.Click();
+
+            return ScreenRepository.Get<ModalWindow>("BMI & BMR Calculator", InitializeOption.NoCache);
         }
     }
 }

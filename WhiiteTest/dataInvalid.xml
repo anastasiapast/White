@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<testdata>
+  <vars height="181" weight="" error="Please enter your weigth in kg."/>
+  <vars height="" weight="50" error="Please enter your height in cm."/>
+  <vars height="158" weight="eeeee" error="'eeeee' is not a valid integer value."/>
+  <vars height="ererer" weight="50" error="'ererer' is not a valid integer value."/>
+  <vars height="158" weight="10000000000" error="'10000000000' is not a valid integer value."/>
+  <vars height="10000000000" weight="50" error="'10000000000' is not a valid integer value."/>
+  <vars height="164" weight="0" error="Please enter your weigth in kg."/>
+  <vars height="0" weight="57" error="Please enter your height in cm."/>
+  <!--<vars height="-10" weight="80" />
+  <vars height="170" weight="-50" />-->
+</testdata>
