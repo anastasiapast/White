@@ -76,6 +76,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlueZone\Base.cs" />
+    <Compile Include="BlueZone\BlueZoneTests.cs" />
+    <Compile Include="BlueZone\Elements.cs" />
+    <Compile Include="BlueZone\EntityLpar.cs" />
     <Compile Include="BMICalculator.cs" />
     <Compile Include="Notepade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,8 +98,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlueZone\items.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="dataInvalid.xml" />
-    <Content Include="data.xml" />
+    <Content Include="data.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

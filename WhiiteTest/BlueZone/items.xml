@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<modes>
+  <mode name="Mainframe Sessions">
+    <lpar>rs14</lpar>
+    <lpar>rs22</lpar>
+    <lpar>rs25</lpar>
+    <lpar>rs27</lpar>
+    <lpar>rs28</lpar>
+    <lpar>rs50</lpar>
+  </mode>
+
+  <mode name="FTP Sessions">
+    <lpar>Connection 1</lpar>
+    <lpar>Connection 1</lpar>
+  </mode>
+</modes>
