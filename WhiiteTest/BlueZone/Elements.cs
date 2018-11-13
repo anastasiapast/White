@@ -10,6 +10,7 @@ using TestStack.White.ScreenObjects;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.Finders;
 using TestStack.White.UIItems.ListBoxItems;
+using TestStack.White.UIItems.MenuItems;
 using TestStack.White.UIItems.WindowItems;
 using TestStack.White.UIItems.WindowStripControls;
 using TestStack.White.Utility;
@@ -22,10 +23,13 @@ namespace WhiiteTest.BlueZone
         protected ListBox lpars;
         protected Panel panel;
         protected ComboBox combo;
+        protected MenuBar menuBar;
+        protected Window dialog;
+       
 
         public Elements(Window window, ScreenRepository screenRepository) : base(window, screenRepository) { }
 
-        public virtual bool checkLpars (List<string> baseline)
+        public virtual bool CheckLpars (List<string> baseline)
         {
             List<string> items = new List<string>();
 
@@ -39,12 +43,41 @@ namespace WhiiteTest.BlueZone
             return (items.SequenceEqual(baseline));
         }
 
-        public virtual void changeMode (String mode)
+        public virtual void ChangeMode (String mode)
         {
             panel = Window.Get<Panel>();
             var f = panel.Get<ComboBox>(SearchCriteria.ByClassName("ComboBox").AndIndex(0));
             combo = panel.Get<ComboBox>(SearchCriteria.ByClassName("ComboBox").AndIndex(1));
             combo.Select(mode);
+        }
+
+        public virtual bool ClickAboutMenuBar ()
+        {
+            bool result = false;
+
+            List<string> baseline = new List<string>() {"BlueZone Session Manager v6.2.3.2424", "© Rocket Software, Inc. or its affiliates 1996 - 2015." , "All rights reserved." };
+            List<string> actual = new List<string>();
+
+            menuBar = Window.MenuBar;
+
+            menuBar.MenuItem("Help", "About Session Manager...").Click();
+
+            dialog = Window.ModalWindow("About Session Manager");
+
+            if (dialog.IsModal)
+            {
+                IUIItem[] labels = dialog.GetMultiple(SearchCriteria.ByControlType(ControlType.Text));
+                foreach(var l in labels)
+                {
+                    actual.Add(l.Name);
+                }
+                if (actual.SequenceEqual(baseline))
+                {
+                    dialog.Get<Button>("OK").Click();
+                    result = true;
+                }                
+            }
+            return result;
         }
 
     }

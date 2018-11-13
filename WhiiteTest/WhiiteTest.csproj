@@ -79,7 +79,6 @@
     <Compile Include="BlueZone\Base.cs" />
     <Compile Include="BlueZone\BlueZoneTests.cs" />
     <Compile Include="BlueZone\Elements.cs" />
-    <Compile Include="BlueZone\EntityLpar.cs" />
     <Compile Include="BMICalculator.cs" />
     <Compile Include="Notepade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
